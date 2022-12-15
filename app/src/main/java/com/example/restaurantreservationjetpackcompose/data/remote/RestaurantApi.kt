@@ -9,12 +9,12 @@ import retrofit2.http.GET
 interface RestaurantApi {
 
     @GET(Constants.CUSTOMER)
-    fun getCustomers(): List<CustomerDto>
+    suspend fun getCustomers(): List<CustomerDto>
 
     @GET(Constants.RESERVATION)
-    fun getReservations(): List<ReservationDto>
+    suspend fun getReservations(): List<ReservationDto>
 
     @GET(Constants.TABLE)
-    fun getTables(): List<TableDto>
+    suspend fun getTables(): List<TableDto>
 
 }
