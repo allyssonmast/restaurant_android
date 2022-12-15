@@ -6,7 +6,7 @@ import com.example.restaurantreservationjetpackcompose.util.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetTables @Inject constructor(
+class GetTables (
     private val repository: IRestaurantRepository
 ){
     operator fun invoke(): Flow<Resource<List<Table>>> {
