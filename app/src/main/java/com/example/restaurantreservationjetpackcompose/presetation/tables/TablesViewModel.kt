@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.restaurantreservationjetpackcompose.domain.useCase.GetTables
 import com.example.restaurantreservationjetpackcompose.common.Resource
+import com.example.restaurantreservationjetpackcompose.domain.entities.Customer
+import com.example.restaurantreservationjetpackcompose.domain.entities.Table
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -17,6 +19,8 @@ import javax.inject.Inject
 class TablesViewModel @Inject constructor(
     private val getTablesUseCase: GetTables
 ):ViewModel(){
+    private val _stateCustomers = mutableStateOf<TablesState>(TablesState())
+    private val _stateReservations = mutableStateOf<TablesState>(TablesState())
     private val _state = mutableStateOf<TablesState>(TablesState())
     val state: State<TablesState> = _state
 
@@ -42,6 +46,11 @@ class TablesViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun getCustomer(table: Table): Customer {
+
+        return Customer(firstName = "Allysson", lastName = "Mastrangelo", imageUrl = "", id = 1);
     }
 
     sealed class UIEvent{

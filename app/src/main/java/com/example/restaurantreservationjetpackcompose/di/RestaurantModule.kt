@@ -47,6 +47,7 @@ object RestaurantModule {
     fun provideRestaurantApi(): RestaurantApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(OkHttpClient.Builder().build())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()

@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.restaurantreservationjetpackcompose.common.Screen
-import com.example.restaurantreservationjetpackcompose.presetation.tables.TablesSreen
+import com.example.restaurantreservationjetpackcompose.presetation.tables.ui.TablesSreen
 import com.example.restaurantreservationjetpackcompose.common.theme.RestaurantReservationJetpackComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
