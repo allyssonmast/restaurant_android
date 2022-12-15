@@ -1,4 +1,4 @@
-package com.example.restaurantreservationjetpackcompose.presetation.tables.ui
+package com.example.restaurantreservationjetpackcompose.presetation.customers.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,44 +13,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.restaurantreservationjetpackcompose.common.Screen
-import com.example.restaurantreservationjetpackcompose.presetation.tables.TablesViewModel
+import com.example.restaurantreservationjetpackcompose.presetation.customers.CustomersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TablesSreen(
+fun CustomersScreen(
     navController: NavController,
-    viewModel: TablesViewModel = hiltViewModel()
+    viewModel: CustomersViewModel = hiltViewModel()
 ){
     val state= viewModel.state.value
-
     Scaffold (
         topBar = {
             TopAppBar(
                 colors =  TopAppBarDefaults
                     .mediumTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer
-                    ),
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                ),
                 title = {
-                    Text(text = "Top App Bar")
+                    Text(text = "Customers")
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        navController.navigateUp()
+                    }) {
+                        Icon(Icons.Filled.ArrowBack, "backIcon")
+                    }
                 },
             )
         }
-            ){ paddingValues ->
+    ){ paddingValues ->
         LazyColumn(modifier =  Modifier.padding(paddingValues),){
 
-
-            items(state.tables){ table ->
-                val customer= viewModel.getCustomer(table)
-                TableItem(
-                    table = table,
+            items(state.customers){ customer ->
+                CustomerItem(
                     customer = customer,
                     onItemClick = {
-                        navController.navigate(Screen.CustomersScreen.route+"/${table.id}")
-                })
+
+                    })
             }
         }
 
@@ -68,7 +69,6 @@ fun TablesSreen(
             ) {
                 CircularProgressIndicator()
             }
-
 
     }
 }

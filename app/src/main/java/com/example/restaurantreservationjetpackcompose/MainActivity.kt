@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.restaurantreservationjetpackcompose.common.Screen
 import com.example.restaurantreservationjetpackcompose.presetation.tables.ui.TablesSreen
 import com.example.restaurantreservationjetpackcompose.common.theme.RestaurantReservationJetpackComposeTheme
+import com.example.restaurantreservationjetpackcompose.presetation.customers.ui.CustomersScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +37,11 @@ class MainActivity : ComponentActivity() {
                             route = Screen.TablesScreen.route
                         ){
                             TablesSreen(navController = navController)
+                        }
+                        composable(
+                            route = Screen.CustomersScreen.route+"/{tableId}"
+                        ){
+                            CustomersScreen(navController)
                         }
                     }
                 }

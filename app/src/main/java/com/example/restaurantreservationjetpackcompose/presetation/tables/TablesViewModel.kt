@@ -19,14 +19,8 @@ import javax.inject.Inject
 class TablesViewModel @Inject constructor(
     private val getTablesUseCase: GetTables
 ):ViewModel(){
-    private val _stateCustomers = mutableStateOf<TablesState>(TablesState())
-    private val _stateReservations = mutableStateOf<TablesState>(TablesState())
     private val _state = mutableStateOf<TablesState>(TablesState())
     val state: State<TablesState> = _state
-
-    private val _eventFlow = MutableSharedFlow<UIEvent>()
-    val eventFlow=_eventFlow.asSharedFlow()
-
 
     init {
         getTables()
@@ -53,7 +47,4 @@ class TablesViewModel @Inject constructor(
         return Customer(firstName = "Allysson", lastName = "Mastrangelo", imageUrl = "", id = 1);
     }
 
-    sealed class UIEvent{
-        data class ShowSnackBar(val message: String):UIEvent()
-    }
 }
