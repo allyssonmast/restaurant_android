@@ -16,12 +16,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.restaurantreservationjetpackcompose.presetation.customers.CustomersViewModel
+import com.example.restaurantreservationjetpackcompose.presetation.tables.TablesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomersScreen(
     navController: NavController,
-    viewModel: CustomersViewModel = hiltViewModel()
+    viewModel: TablesViewModel = hiltViewModel()
 ){
     val state= viewModel.state.value
     Scaffold (
@@ -46,7 +47,7 @@ fun CustomersScreen(
     ){ paddingValues ->
         LazyColumn(modifier =  Modifier.padding(paddingValues),){
 
-            items(state.customers){ customer ->
+            items(state.restaurant.customers){ customer ->
                 CustomerItem(
                     customer = customer,
                     onItemClick = {

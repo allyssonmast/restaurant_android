@@ -6,6 +6,7 @@ import com.example.restaurantreservationjetpackcompose.domain.entities.Reservati
 import com.example.restaurantreservationjetpackcompose.domain.entities.Table
 import com.example.restaurantreservationjetpackcompose.domain.repositories.IRestaurantRepository
 import com.example.restaurantreservationjetpackcompose.common.Resource
+import com.example.restaurantreservationjetpackcompose.domain.entities.Restaurant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
@@ -58,6 +59,27 @@ class RepositoryRestaurantImp @Inject constructor(
                 "Ops, somethings went wrong",
                 data = null
             ))
+        }catch (e: IOException){
+            emit(Resource.Error("Check your internet"))
+        }
+    }
+
+    override fun getAllRestaurantData(): Flow<Resource<Restaurant>> = flow {
+        emit(Resource.Loading())
+        try {
+            val reservations = api.getReservations().map { it.toReservation() }
+            val customers = api.getCustomers().map { it.toCustomers() }
+            val tables = api.getTables().map { it.toTables() }
+            val restaurant = Restaurant(customers,tables,reservations)
+
+            emit(Resource.Success(restaurant))
+
+        }catch (e: HttpException){
+            emit(
+                Resource.Error(
+                    "Ops, somethings went wrong",
+                    data = null
+                ))
         }catch (e: IOException){
             emit(Resource.Error("Check your internet"))
         }

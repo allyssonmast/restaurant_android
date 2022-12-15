@@ -1,11 +1,12 @@
 package com.example.restaurantreservationjetpackcompose.data.tables.remote.dto
 
 import com.example.restaurantreservationjetpackcompose.domain.entities.Reservation
+import com.google.gson.annotations.SerializedName
 
 data class ReservationDto(
-    val userId: Int,
-    val tableId: Int,
-    val id: Int,
+    @SerializedName("user_id") val userId: Int,
+    @SerializedName("table_id") val tableId: Int,
+    @SerializedName("id") val id: Int,
 ){
     fun toReservation(): Reservation{
         return Reservation(

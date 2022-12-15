@@ -4,20 +4,19 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.restaurantreservationjetpackcompose.domain.useCase.GetTables
 import com.example.restaurantreservationjetpackcompose.common.Resource
 import com.example.restaurantreservationjetpackcompose.domain.entities.Customer
+import com.example.restaurantreservationjetpackcompose.domain.entities.Restaurant
 import com.example.restaurantreservationjetpackcompose.domain.entities.Table
+import com.example.restaurantreservationjetpackcompose.domain.useCase.GetAllRestaurantData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
 class TablesViewModel @Inject constructor(
-    private val getTablesUseCase: GetTables
+    private val getTablesUseCase: GetAllRestaurantData
 ):ViewModel(){
     private val _state = mutableStateOf<TablesState>(TablesState())
     val state: State<TablesState> = _state
@@ -30,7 +29,11 @@ class TablesViewModel @Inject constructor(
         getTablesUseCase().onEach { resource ->
             when(resource){
                 is Resource.Success ->{
-                    _state.value= TablesState(tables = resource.data?: emptyList())
+                    _state.value= TablesState(
+                        restaurant =
+                        resource.data?: Restaurant(
+                            emptyList(), emptyList(), emptyList()
+                    ))
                 }
                 is Resource.Error ->{
                     _state.value =TablesState(error = resource.message?:"An error occured")
@@ -42,9 +45,18 @@ class TablesViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun getCustomer(table: Table): Customer {
+    fun getCustomer(table: Table): Customer? {
 
-        return Customer(firstName = "Allysson", lastName = "Mastrangelo", imageUrl = "", id = 1);
+        val reservation =
+            state.value.restaurant.reservation.firstOrNull { reservation -> reservation.tableId==table.id }
+
+        val customer:Customer? = if(reservation!=null){
+            _state.value.restaurant.customers.firstOrNull { custome -> custome.id== reservation.userId }
+        }else{
+            null
+        }
+
+        return  customer
     }
 
 }
