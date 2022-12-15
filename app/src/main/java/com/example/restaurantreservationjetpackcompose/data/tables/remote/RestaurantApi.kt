@@ -1,9 +1,9 @@
-package com.example.restaurantreservationjetpackcompose.data.remote
+package com.example.restaurantreservationjetpackcompose.data.tables.remote
 
 import com.example.restaurantreservationjetpackcompose.common.Constants
-import com.example.restaurantreservationjetpackcompose.data.remote.dto.CustomerDto
-import com.example.restaurantreservationjetpackcompose.data.remote.dto.ReservationDto
-import com.example.restaurantreservationjetpackcompose.data.remote.dto.TableDto
+import com.example.restaurantreservationjetpackcompose.data.tables.remote.dto.CustomerDto
+import com.example.restaurantreservationjetpackcompose.data.tables.remote.dto.ReservationDto
+import com.example.restaurantreservationjetpackcompose.data.tables.remote.dto.TableDto
 import retrofit2.http.GET
 
 interface RestaurantApi {

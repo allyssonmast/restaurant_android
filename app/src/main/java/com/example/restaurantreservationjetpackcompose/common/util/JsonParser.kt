@@ -1,4 +1,4 @@
-package com.example.restaurantreservationjetpackcompose.data.util
+package com.example.restaurantreservationjetpackcompose.common.util
 
 import java.lang.reflect.Type
 

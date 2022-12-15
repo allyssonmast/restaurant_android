@@ -1,11 +1,11 @@
-package com.example.restaurantreservationjetpackcompose.data.repository
+package com.example.restaurantreservationjetpackcompose.data.tables.repository
 
-import com.example.restaurantreservationjetpackcompose.data.remote.RestaurantApi
+import com.example.restaurantreservationjetpackcompose.data.tables.remote.RestaurantApi
 import com.example.restaurantreservationjetpackcompose.domain.entities.Customer
 import com.example.restaurantreservationjetpackcompose.domain.entities.Reservation
 import com.example.restaurantreservationjetpackcompose.domain.entities.Table
 import com.example.restaurantreservationjetpackcompose.domain.repositories.IRestaurantRepository
-import com.example.restaurantreservationjetpackcompose.util.Resource
+import com.example.restaurantreservationjetpackcompose.common.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
@@ -21,7 +21,8 @@ class RepositoryRestaurantImp @Inject constructor(
             val result = api.getCustomers()
             emit(Resource.Success(result.map { it.toCustomers() }))
         }catch (e: HttpException){
-            emit(Resource.Error(
+            emit(
+                Resource.Error(
                 "Ops, somethings went wrong",
                 data = null
             ))
@@ -36,7 +37,8 @@ class RepositoryRestaurantImp @Inject constructor(
             val result = api.getTables()
             emit(Resource.Success(result.map { it.toTables() }))
         }catch (e: HttpException){
-            emit(Resource.Error(
+            emit(
+                Resource.Error(
                 "Ops, somethings went wrong",
                 data = null
             ))
@@ -51,7 +53,8 @@ class RepositoryRestaurantImp @Inject constructor(
             val result = api.getReservations()
             emit(Resource.Success(result.map { it.toReservation() }))
         }catch (e: HttpException){
-            emit(Resource.Error(
+            emit(
+                Resource.Error(
                 "Ops, somethings went wrong",
                 data = null
             ))

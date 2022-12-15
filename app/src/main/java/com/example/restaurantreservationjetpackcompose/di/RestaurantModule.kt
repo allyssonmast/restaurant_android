@@ -1,8 +1,8 @@
 package com.example.restaurantreservationjetpackcompose.di
 
 import com.example.restaurantreservationjetpackcompose.common.Constants.BASE_URL
-import com.example.restaurantreservationjetpackcompose.data.remote.RestaurantApi
-import com.example.restaurantreservationjetpackcompose.data.repository.RepositoryRestaurantImp
+import com.example.restaurantreservationjetpackcompose.data.tables.remote.RestaurantApi
+import com.example.restaurantreservationjetpackcompose.data.tables.repository.RepositoryRestaurantImp
 import com.example.restaurantreservationjetpackcompose.domain.repositories.IRestaurantRepository
 import com.example.restaurantreservationjetpackcompose.domain.useCase.GetCustomers
 import com.example.restaurantreservationjetpackcompose.domain.useCase.GetReservations
@@ -44,9 +44,8 @@ object RestaurantModule {
 
     @Provides
     @Singleton
-    fun provideRestaurantApi():RestaurantApi{
+    fun provideRestaurantApi(): RestaurantApi {
         return Retrofit.Builder()
-            .client(provideHttpClient().build())
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

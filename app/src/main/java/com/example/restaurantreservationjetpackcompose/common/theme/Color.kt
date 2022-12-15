@@ -1,4 +1,4 @@
-package com.example.restaurantreservationjetpackcompose.presetation.theme
+package com.example.restaurantreservationjetpackcompose.common.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.example.restaurantreservationjetpackcompose.data.remote.dto
+package com.example.restaurantreservationjetpackcompose.data.tables.remote.dto
 
 import com.example.restaurantreservationjetpackcompose.domain.entities.Table
 
