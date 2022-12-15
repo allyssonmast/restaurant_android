@@ -1,4 +1,4 @@
-package com.example.restaurantreservationjetpackcompose.ui.theme
+package com.example.restaurantreservationjetpackcompose.presetation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.example.restaurantreservationjetpackcompose.ui.theme
+package com.example.restaurantreservationjetpackcompose.presetation.theme
 
 import android.app.Activity
 import android.os.Build
