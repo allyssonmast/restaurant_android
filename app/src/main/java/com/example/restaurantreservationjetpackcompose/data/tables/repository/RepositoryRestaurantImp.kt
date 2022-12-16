@@ -1,5 +1,7 @@
 package com.example.restaurantreservationjetpackcompose.data.tables.repository
 
+import com.example.restaurantreservationjetpackcompose.common.Constants
+import com.example.restaurantreservationjetpackcompose.common.FileStorageUtil
 import com.example.restaurantreservationjetpackcompose.data.tables.remote.RestaurantApi
 import com.example.restaurantreservationjetpackcompose.domain.entities.Customer
 import com.example.restaurantreservationjetpackcompose.domain.entities.Reservation
@@ -14,13 +16,24 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class RepositoryRestaurantImp @Inject constructor(
-    private val api: RestaurantApi
+    private val api: RestaurantApi,
+    private val fileStorageUtil: FileStorageUtil
 ): IRestaurantRepository {
     override  fun getCustomers(): Flow<Resource<List<Customer>>> = flow {
         emit(Resource.Loading())
+        val storedTables = fileStorageUtil
+            .readSerializable<ArrayList<Customer>>(Constants.CUSTOMERS_FILE_NAME)
         try {
-            val result = api.getCustomers()
-            emit(Resource.Success(result.map { it.toCustomers() }))
+            if (storedTables != null)
+                emit(Resource.Success(storedTables))
+            else {
+                val result = api.getCustomers()
+                fileStorageUtil.saveSerializable(
+                    result.map { it.toCustomers() } as ArrayList<*>,
+                    Constants.CUSTOMERS_FILE_NAME
+                )
+                emit(Resource.Success(result.map { it.toCustomers() }))
+            }
         }catch (e: HttpException){
             emit(
                 Resource.Error(
@@ -34,9 +47,19 @@ class RepositoryRestaurantImp @Inject constructor(
 
     override fun getTables(): Flow<Resource<List<Table>>> = flow {
         emit(Resource.Loading())
+        val storedTables = fileStorageUtil
+            .readSerializable<ArrayList<Table>>(Constants.TABLES_FILE_NAME)
         try {
-            val result = api.getTables()
-            emit(Resource.Success(result.map { it.toTables() }))
+            if (storedTables != null)
+                emit(Resource.Success(storedTables))
+            else {
+                val result = api.getTables()
+                fileStorageUtil.saveSerializable(
+                    result.map { it.toTables() } as ArrayList<*>,
+                    Constants.TABLES_FILE_NAME
+                )
+                emit(Resource.Success(result.map { it.toTables() }))
+            }
         }catch (e: HttpException){
             emit(
                 Resource.Error(
@@ -50,9 +73,19 @@ class RepositoryRestaurantImp @Inject constructor(
 
     override fun getReservations(): Flow<Resource<List<Reservation>>>  = flow{
         emit(Resource.Loading())
+        val storedTables = fileStorageUtil
+            .readSerializable<ArrayList<Reservation>>(Constants.RESERVATIONS_FILE_NAME)
         try {
-            val result = api.getReservations()
-            emit(Resource.Success(result.map { it.toReservation() }))
+            if (storedTables != null)
+                emit(Resource.Success(storedTables))
+            else {
+                val result = api.getReservations()
+                fileStorageUtil.saveSerializable(
+                    result.map { it.toReservation() } as ArrayList<*>,
+                    Constants.RESERVATIONS_FILE_NAME
+                )
+                emit(Resource.Success(result.map { it.toReservation() }))
+            }
         }catch (e: HttpException){
             emit(
                 Resource.Error(

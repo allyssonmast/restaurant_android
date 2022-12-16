@@ -7,6 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -22,6 +25,9 @@ fun TablesSreen(
     viewModel: TablesViewModel = hiltViewModel()
 ){
     val state= viewModel.state.value
+    val internetConnectionState = remember { mutableStateOf(viewModel.hasInternetConnection.value) }
+
+    viewModel.hasInternetConnection.observeAsState(internetConnectionState)
 
     Scaffold (
         topBar = {
@@ -64,7 +70,8 @@ fun TablesSreen(
             ) {
                 CircularProgressIndicator()
             }
-
+        if (internetConnectionState.value == false)
+            InternetConnectionDialog()
 
     }
 }

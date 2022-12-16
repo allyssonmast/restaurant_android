@@ -1,6 +1,7 @@
 package com.example.restaurantreservationjetpackcompose.di
 
 import com.example.restaurantreservationjetpackcompose.common.Constants.BASE_URL
+import com.example.restaurantreservationjetpackcompose.common.FileStorageUtil
 import com.example.restaurantreservationjetpackcompose.data.tables.remote.RestaurantApi
 import com.example.restaurantreservationjetpackcompose.data.tables.repository.RepositoryRestaurantImp
 import com.example.restaurantreservationjetpackcompose.domain.repositories.IRestaurantRepository
@@ -56,8 +57,8 @@ object RestaurantModule {
 
     @Provides
     @Singleton
-    fun provideRestaurantRepository(api: RestaurantApi): IRestaurantRepository{
-        return RepositoryRestaurantImp(api)
+    fun provideRestaurantRepository(api: RestaurantApi,file: FileStorageUtil): IRestaurantRepository{
+        return RepositoryRestaurantImp(api,file)
     }
 
     @Provides
