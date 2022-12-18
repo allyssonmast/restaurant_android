@@ -12,9 +12,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.restaurantreservationjetpackcompose.common.Constants
 import com.example.restaurantreservationjetpackcompose.common.Screen
 import com.example.restaurantreservationjetpackcompose.presetation.tables.TablesViewModel
 
@@ -42,7 +44,7 @@ fun TablesSreen(
             )
         }
             ){ paddingValues ->
-        LazyColumn(modifier =  Modifier.padding(paddingValues),){
+        LazyColumn(modifier =  Modifier.padding(paddingValues).testTag(Constants.TITLE)){
 
 
             items(state.restaurant.tables){ table ->
